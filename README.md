@@ -9,6 +9,18 @@ In this recitation, you will create a TicTacToe plug-in for a simple framework t
 - [ ] Discuss what the extension points are in this system and explain why to your TA.
 - [ ] Discuss what design pattern is being used here with your TA.
 
+1. Extension points are specific places in a software system where new functionality can be added without modifying the existing codebase. In the context of the described framework, the extension points are:
+   * **GamePlugin Interface: This is the primary extension point.** By implementing this interface, developers can add new games (like TicTacToe) to the framework. The interface defines a contract that all plugins must adhere to, encapsulating the specific game logic.
+   * GameFramework: This acts as a host for the plugins. It manages the lifecycle of game plugins (like registration, initialization, and cleanup), handles GUI implementation, and manages player interactions. This separation allows game developers to focus solely on game logic.
+   * Player Management and Game State: The framework presumably handles player management (like keeping track of whose turn it is) and maintaining the game state (like the grid's current status). These are extension points because they allow different games to define their own rules and states without worrying about the underlying management logistics.
+   * **GUI Implementation: The framework's handling of GUI provides another extension point.** Game plugins don't need to concern themselves with rendering the game on screen or handling user inputs directly, as this is managed by the framework.
+
+2. The design pattern predominantly used here is the Plugin Pattern, which is a variant of the Strategy Pattern:
+   
+   * **Plugin Pattern: This pattern allows for the extension of an application's features through dynamically loaded plugins**. Each plugin implements a common interface (GamePlugin in this case) and is managed by a host system (GameFramework). This pattern supports high extensibility and modularity, as new games can be added as plugins without altering the framework's core functionality.
+   
+   * Strategy Pattern: This pattern is about defining a family of algorithms (in this case, different game logics), encapsulating each one, and making them interchangeable. The GamePlugin interface allows the GameFramework to use various game logics interchangeably, depending on which game (plugin) is currently active.
+
 ## Introduction
 A framework provides a set of common functionalities that can be used by plug-ins to build applications. These functionalities typically include:
 - A set of predefined functions or classes that can be used to perform common tasks, such as database access, input validation, and session management.
